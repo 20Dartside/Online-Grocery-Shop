@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wishlist — SnackShop</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!-- Top Notification Bar -->
+  <div class="top-bar">
+    Just Dropped: Fresh & Spice Namkeen 🎃
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Namkeen <span>Snacks</span></div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('order') }}">ORDER <span class="new">NEW</span></a></li>
+        <li><a href="{{ url_for('products') }}">PRODUCTS <span class="tag">BESTPRODUCT</span></a></li>
+        <li><a href="{{ url_for('cart') }}">CART</a></li>
+        <li><a href="{{ url_for('about') }}">ABOUT US</a></li>
+
+        <li>
+          <a href="{{ url_for('shopall') }}">SHOP ALL ▼</a>
+          <ul>
+            <li><a href="{{ url_for('snacks') }}">Snacks</a></li>
+            <li><a href="{{ url_for('chuda') }}">Chuda</a></li>
+            <li><a href="{{ url_for('poha') }}">Poha</a></li>
+            <li><a href="{{ url_for('namkeen') }}">Namkeen</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="{{ url_for('cart') }}">CART ▼</a>
+          <ul>
+            <li><a href="{{ url_for('checkout') }}">Checkout</a></li>
+            <li><a href="{{ url_for('wishlist') }}">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sidebar Profile -->
+    <div id="profileSidebar" class="profile-sidebar">
+      <span class="close-profile" onclick="toggleProfile()">✖</span>
+      <div class="profile-header" id="profileName">👤 Guest</div>
+
+      <div class="profile-menu">
+        <button onclick="toggleSection('ordersSection')">📦 Your Orders</button>
+        <button onclick="toggleSection('listSection')">📝 Your List (Cart)</button>
+        <button onclick="toggleSection('buyagainSection')">🔄 Buy Again</button>
+      </div>
+
+      <div class="profile-section" id="ordersSection" style="display:none;">
+        <h3>Your Orders</h3>
+        <div id="ordersList"></div>
+      </div>
+
+      <div class="profile-section" id="listSection" style="display:none;">
+        <h3>Your Cart</h3>
+        <div id="listItems"></div>
+      </div>
+
+      <div class="profile-section" id="buyagainSection" style="display:none;">
+        <h3>Buy Again</h3>
+        <div id="buyAgainItems"></div>
+      </div>
+    </div>
+
+    <div class="icons">
+      <a href="javascript:void(0)" onclick="toggleProfile()">👤</a>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="logout-section">
+      <button class="logout-btn" onclick="logoutUser()">🚪 Logout</button>
+    </div>
+  </header>
+
+  <!-- Wishlist Content -->
+  <main class="container">
+    <h1 class="page-title">❤️ My Wishlist</h1>
+
+    {% if wishlist|length == 0 %}
+    <!-- If Wishlist Empty -->
+    <div class="empty-state">
+      <p>Your wishlist is empty.</p>
+      <a href="{{ url_for('products') }}" class="btn">Continue Shopping</a>
+    </div>
+    {% else %}
+    <!-- Wishlist Items -->
+    <div class="wishlist-grid">
+      {% for item in wishlist %}
+      <div class="wishlist-card">
+        <img src="{{ url_for('static', filename='images/' ~ item.image) }}" alt="{{ item.name }}">
+        <div class="info">
+          <h2>{{ item.name }}</h2>
+          <p>{{ item.description }}</p>
+          <span class="price">₹ {{ item.price }}</span>
+          <div class="actions">
+            <button class="btn primary" onclick="moveToCart('{{ item.name }}')">Move to Cart</button>
+            <button class="btn danger" onclick="removeFromWishlist('{{ item.name }}')">Remove</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 SnackShop</div>
+  </footer>
+
+  <script>
+    function toggleProfile() {
+      document.getElementById("profileSidebar").classList.toggle("active");
+      renderProfileData();
+    }
+
+    function toggleSection(id) {
+      let sections = document.querySelectorAll(".profile-section");
+      sections.forEach(sec => {
+        sec.style.display = (sec.id === id) ? "block" : "none";
+      });
+    }
+
+    function renderProfileData() {
+      let userName = localStorage.getItem("username") || "Guest User";
+      document.getElementById("profileName").innerText = "👤 " + userName;
+
+      let orders = JSON.parse(localStorage.getItem("orders")) || [];
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let buyAgain = JSON.parse(localStorage.getItem("buyAgain")) || [];
+
+      renderOrders(orders);
+      renderList(cart);
+      renderBuyAgain(buyAgain);
+    }
+
+    function renderOrders(orders) {
+      let container = document.getElementById("ordersList");
+      container.innerHTML = "";
+      if (orders.length === 0) {
+        container.innerHTML = "<p>No orders found.</p>";
+      } else {
+        orders.forEach(o => {
+          container.innerHTML += `<div class="order-card"><span>${o.name} - ₹${o.price} x ${o.qty}</span></div>`;
+        });
+      }
+    }
+
+    function renderList(cart) {
+      let container = document.getElementById("listItems");
+      container.innerHTML = "";
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+      } else {
+        cart.forEach(c => {
+          container.innerHTML += `<div class="order-card"><span>${c.name} - ₹${c.price} x ${c.qty}</span></div>`;
+        });
+      }
+    }
+
+    function renderBuyAgain(buyAgain) {
+      let container = document.getElementById("buyAgainItems");
+      container.innerHTML = "";
+      if (buyAgain.length === 0) {
+        container.innerHTML = "<p>No previous products.</p>";
+      } else {
+        buyAgain.forEach(b => {
+          container.innerHTML += `<div class="order-card"><span>${b.name} - ₹${b.price} x ${b.qty}</span></div>`;
+        });
+      }
+    }
+
+    function logoutUser() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("username");
+      localStorage.removeItem("cart");
+      localStorage.removeItem("orders");
+
+      alert("You have been logged out!");
+      window.location.href = "{{ url_for('login') }}";
+    }
+
+    function moveToCart(productName) {
+      // Implement move to cart logic here
+      alert(productName + " moved to cart!");
+    }
+
+    function removeFromWishlist(productName) {
+      // Implement remove from wishlist logic here
+      alert(productName + " removed from wishlist!");
+    }
+  </script>
+</body>
+</html>

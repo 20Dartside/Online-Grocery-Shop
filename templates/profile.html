@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body { font-family: Arial; background:#eef2f3; margin:0; }
+    .profile-sidebar {
+      position: fixed; top: 0; right: -350px; width: 300px; height: 100%;
+      background: #fff; box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+      transition: right 0.4s ease; padding: 20px; overflow-y: auto;
+    }
+    .profile-sidebar.active { right: 0; }
+    .close-profile { cursor:pointer; font-size:20px; float:right; }
+    .profile-header { font-size:20px; font-weight:bold; margin-top:20px; }
+    .profile-menu button {
+      width:100%; margin:10px 0; padding:10px;
+      border:none; background:#2196F3; color:white; border-radius:5px; cursor:pointer;
+    }
+    .profile-section { margin-top:20px; display:none; }
+    .card {
+      background:white; padding:30px; border-radius:10px;
+      box-shadow:0 0 10px #999; width:350px; text-align:center; margin:80px auto;
+    }
+    .logout { background:#f44336; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; margin-top:20px; }
+    .logout:hover { background:#d32f2f; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Main Profile Card -->
+  <div class="card">
+    <h2>Welcome, {{ user.name }} 👋</h2>
+    <p><strong>Username:</strong> {{ username }}</p>
+    <p><strong>Role:</strong> <span style="color:#4CAF50;">{{ user.role | capitalize }}</span></p>
+     {% if current_user %}
+    <div>
+      👤 {{ current_user.name }} ({{ current_username }})
+      <a href="{{ url_for('profile') }}" style="color:#4CAF50; margin-left:15px;">Profile</a>
+      <a href="{{ url_for('logout') }}" style="color:#f44336; margin-left:15px;">Logout</a>
+    </div>
+  {% else %}
+    <div>
+      <a href="{{ url_for('login') }}" style="color:#2196F3;">Login</a>
+    </div>
+  {% endif %}
+    <a href="{{ url_for('logout') }}">
+  <button class="logout">Logout</button>
+</a>
+
+  </div>
+
+  <!-- Sidebar Profile -->
+<div id="profileSidebar" class="profile-sidebar">
+  <span class="close-profile" onclick="toggleProfile()">✖</span>
+
+  <div class="profile-header" id="profileName">
+    👤 {{ user.name if user else 'Guest' }}
+  </div>
+
+  <div class="profile-section">
+    <p>Full Name: {{ user.profile.name | default('') }}</p>
+    <p>Phone: {{ user.profile.phone | default('') }}</p>
+    <p>Email: {{ user.profile.email | default('') }}</p>
+    <p>City: {{ user.profile.city | default('') }}</p>
+    <p>Last Login: {{ user.profile.last_login | default('Never') }}</p>
+  </div>
+
+  <div class="profile-actions">
+    {% if username %}
+      <a href="{{ url_for('profile') }}" style="color:#4CAF50;">Profile</a> |
+      <a href="{{ url_for('logout') }}" style="color:#f44336;">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" style="color:#2196F3;">Login</a>
+    {% endif %}
+  </div>
+</div>
+
+    <div class="profile-menu">
+      <button onclick="toggleSection('listSection')">🛒 Your Cart</button>
+      <button onclick="toggleSection('ordersSection')">📦 Your Orders</button>
+      <button onclick="toggleSection('buyagainSection')">🔄 Buy Again</button>
+    </div>
+
+    <div class="profile-section" id="listSection"><h3>Your Cart</h3><div id="listItems"></div></div>
+    <div class="profile-section" id="ordersSection"><h3>Your Orders</h3><div id="ordersList"></div></div>
+    <div class="profile-section" id="buyagainSection"><h3>Buy Again</h3><div id="buyAgainItems"></div></div>
+  </div>
+
+  <!-- Profile Icon -->
+  <div class="icons" style="position:fixed; top:20px; right:20px;">
+    <a href="javascript:void(0)" onclick="toggleProfile()" style="font-size:24px;">👤</a>
+  </div>
+
+  <script>
+    function toggleProfile() {
+      const sidebar = document.getElementById('profileSidebar');
+      sidebar.classList.toggle('active');
+    }
+
+    function toggleSection(sectionId) {
+      const sections = document.querySelectorAll('.profile-section');
+      sections.forEach(s => s.style.display = 'none');
+      document.getElementById(sectionId).style.display = 'block';
+    }
+  </script>
+</body>
+</html>

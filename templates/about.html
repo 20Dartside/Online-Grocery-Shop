@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — SnackShop</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+  <!-- Top Notification Bar -->
+  <div class="top-bar">
+    Just Dropped: Fresh & Spice Namkeen 🎃
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Namkeen <span>Snacks</span></div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('order') }}">ORDER <span class="new">NEW</span></a></li>
+        <li><a href="{{ url_for('products') }}">PRODUCTS <span class="tag">BESTPRODUCT</span></a></li>
+        <li><a href="{{ url_for('cart') }}">CART</a></li>
+        <li><a href="{{ url_for('about') }}">ABOUT US</a></li>
+
+        <li>
+          <a href="{{ url_for('shopall') }}">SHOP ALL ▼</a>
+          <ul>
+            <li><a href="{{ url_for('snacks') }}">Snacks</a></li>
+            <li><a href="{{ url_for('chuda') }}">Chuda</a></li>
+            <li><a href="{{ url_for('poha') }}">Poha</a></li>
+            <li><a href="{{ url_for('namkeen') }}">Namkeen</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="{{ url_for('cart') }}">CART ▼</a>
+          <ul>
+            <li><a href="{{ url_for('checkout') }}">Checkout</a></li>
+            <li><a href="{{ url_for('wishlist') }}">Wishlist</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sidebar Profile -->
+    <div id="profileSidebar" class="profile-sidebar">
+      <span class="close-profile" onclick="toggleProfile()">✖</span>
+      <div class="profile-header" id="profileName">👤 Guest</div>
+
+      <!-- Menu Buttons -->
+      <div class="profile-menu">
+        <button onclick="toggleSection('ordersSection')">📦 Your Orders</button>
+        <button onclick="toggleSection('listSection')">📝 Your List (Cart)</button>
+        <button onclick="toggleSection('buyagainSection')">🔄 Buy Again</button>
+      </div>
+
+      <!-- Orders -->
+      <div class="profile-section" id="ordersSection" style="display:none;">
+        <h3>Your Orders</h3>
+        <div id="ordersList"></div>
+      </div>
+
+      <!-- Cart -->
+      <div class="profile-section" id="listSection" style="display:none;">
+        <h3>Your Cart</h3>
+        <div id="listItems"></div>
+      </div>
+
+      <!-- Buy Again -->
+      <div class="profile-section" id="buyagainSection" style="display:none;">
+        <h3>Buy Again</h3>
+        <div id="buyAgainItems"></div>
+      </div>
+    </div>
+
+    <div class="icons">
+      <a href="javascript:void(0)" onclick="toggleProfile()">👤</a>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="logout-section">
+      <a href="{{ url_for('logout') }}" class="logout-btn">🚪 Logout</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>About SnackShop</h1>
+      <p>Spreading happiness through flavors since 1998 🍴</p>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="story container">
+    <div class="story-text">
+      <h2>Our Story</h2>
+      <p>SnackShop began as a small family kitchen making crunchy, flavorful snacks for our neighbors. Today, we deliver across India while keeping the same homemade quality and love.</p>
+    </div>
+    <div class="story-img">
+      <img src="{{ url_for('static', filename='images/conta.png') }}" alt="Our Story">
+    </div>
+  </section>
+
+  <!-- Mission & Values -->
+  <section class="values container">
+    <h2>Our Mission & Values</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>🌱 Freshness</h3>
+        <p>We ensure every snack is prepared fresh with the finest ingredients.</p>
+      </div>
+      <div class="card">
+        <h3>🤝 Trust</h3>
+        <p>Building long-term relationships with customers through honesty & taste.</p>
+      </div>
+      <div class="card">
+        <h3>🌍 Sustainability</h3>
+        <p>Packed responsibly with eco-friendly materials for a better future.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <h2>Ready to Taste Happiness?</h2>
+    <a href="{{ url_for('shopall') }}" class="btn">Shop Now</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">© 2025 SnackShop | Made with ❤️</div>
+  </footer>
+
+  <!-- JS (keep all your existing JS code as-is) -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

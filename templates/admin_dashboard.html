@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ title or "Admin Dashboard" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 12px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar h2 { margin: 0; }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+    .nav-links a:hover {
+      color: #1abc9c;
+    }
+    .logout {
+      background-color: #e74c3c;
+      padding: 6px 10px;
+      border-radius: 5px;
+    }
+    .logout:hover {
+      background-color: #c0392b;
+    }
+    .content {
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2, h3 {
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      table-layout: fixed;
+    }
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      vertical-align: top;
+    }
+    th {
+      background-color: #34495e;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+    .hidden { display: none; }
+    .nav-active {
+      color: #1abc9c !important;
+    }
+    td.password-cell, th.password-cell {
+      max-width: 200px;
+      width: 200px;
+    }
+    th:nth-child(5), td:nth-child(5) {
+      width: 200px;
+    }
+
+/* 🎯 Improved Actions Column */
+td:last-child, th:last-child {
+  width: 260px; /* Make the Actions column wider */
+  text-align: center;
+}
+
+td:last-child {
+  vertical-align: middle;
+}
+
+td:last-child form {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+td:last-child input[type="password"] {
+  flex: 1;
+  min-width: 130px;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+/* 🔘 Action Buttons */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
+  text-transform: capitalize;
+}
+
+.action-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Reset Button */
+.reset-btn {
+  background: #3498db;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+}
+.reset-btn:hover {
+  background: #2c80b4;
+}
+
+/* Delete Button */
+.delete-btn {
+  background: #e74c3c;
+  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
+}
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+/* 🧩 Make it responsive and clean */
+@media (max-width: 900px) {
+  td:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  td:last-child form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  td:last-child input[type="password"] {
+    width: 100%;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}
+
+
+
+    .message {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    .message-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .message-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    /* Forms */
+    form input, form select {
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    form button {
+      padding: 8px 14px;
+      background: #1abc9c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    form button:hover {
+      background: #159d82;
+    }
+    /* Inline buttons */
+    .action-btn {
+      padding: 5px 8px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-size: 13px;
+      margin-right: 5px;
+      transition: background-color 0.3s;
+    }
+    .reset-btn {
+      background: #3498db;
+    }
+    .reset-btn:hover {
+      background: #2c80b4;
+    }
+    .delete-btn {
+      background: #e74c3c;
+    }
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+    /* Notification Box */
+    #notificationBox {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+}
+
+#notificationBox.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#notificationBox.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+#notificationBox.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* 🔴 Confirmation Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.3);
+  animation: slideDown 0.3s ease;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #e74c3c;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-yes {
+  background: #e74c3c;
+  color: white;
+}
+.btn-yes:hover {
+  background: #c0392b;
+}
+
+.btn-no {
+  background: #bdc3c7;
+  color: #2c3e50;
+}
+.btn-no:hover {
+  background: #95a5a6;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!--popup massage in windows-->
+  <div id="notificationBox" class="hidden"></div>
+
+  <div class="navbar">
+    <h2>Admin Dashboard</h2>
+    <div class="nav-links">
+      <a href="#" id="dashboardTab" class="nav-active" onclick="showSection('dashboard', event)">Dashboard</a>
+      <a href="#" onclick="showSection('products', event)">Manage Products</a>
+      <a href="#" onclick="showSection('users', event)">Manage Users</a>
+      <a href="#" onclick="showSection('orders', event)">View Orders</a>
+      <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message message-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- DASHBOARD -->
+    <div id="dashboard">
+      <h2>Welcome, Admin 👋</h2>
+      <p>This is your main dashboard. Use the navigation bar above to manage your site.</p>
+    </div>
+
+    <!-- MANAGE PRODUCTS -->
+    <div id="products" class="hidden">
+      <h2>🛍 Manage Products</h2>
+      <p>Feature coming soon...</p>
+    </div>
+
+   <!-- MANAGE USERS -->
+<div id="users" class="hidden">
+  <h2>👥 Manage Users</h2>
+
+  <!-- Add New User Form -->
+  <form action="{{ url_for('add_user') }}" method="POST"
+        style="margin-bottom: 25px; background: #fff; padding: 20px;
+               border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h3>Add New User</h3>
+    <input type="text" name="name" placeholder="Full Name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="text" name="username" placeholder="Username" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <select name="role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button type="submit">Add</button>
+  </form>
+<!-- 🔴 Custom Delete Confirmation Modal -->
+<div id="confirmModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Are you sure?</h3>
+    <p>This action will permanently delete this user.</p>
+    <div class="modal-actions">
+      <button id="confirmYes" class="btn-yes">Yes, Delete</button>
+      <button id="confirmNo" class="btn-no">Cancel</button>
+    </div>
+  </div>
+</div>
+
+  <!-- Users Table -->
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Username</th>
+      <th class="password-cell">Password (hashed)</th>
+      <th>Role</th>
+      <th>Last Login</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.username }}</td>
+      <td class="password-cell">{{ user.password }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.last_login }}</td>
+      <td>
+        <!-- Reset Password -->
+        <form action="{{ url_for('reset_password', user_id=user.id) }}" method="POST" style="display:inline;">
+          <input type="password" name="new_password" placeholder="New Password" required style="width: 120px; padding:4px; margin-right:4px;" />
+          <button type="submit" class="action-btn reset-btn">Reset</button>
+        </form>
+
+        <!-- Delete User -->
+       <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+  <button type="submit" class="action-btn delete-btn">Delete</button>
+</form>
+
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8" style="text-align:center;">No users found.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+    <!-- VIEW ORDERS -->
+    <div id="orders" class="hidden">
+      <h2>🧾 View Orders</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Pin</th>
+          <th>Payment</th>
+          <th>Products</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.full_name }}</td>
+          <td>{{ order.phone }}</td>
+          <td>{{ order.email }}</td>
+          <td>{{ order.address }}</td>
+          <td>{{ order.city }}</td>
+          <td>{{ order.pin }}</td>
+          <td>{{ order.payment }}</td>
+          <td>
+            {% if order.cart %}
+              {% set cart_items = order.cart | safe | loads %}
+              <ul>
+                {% for item in cart_items %}
+                  <li>{{ item.name }} (x{{ item.qty }}) — ₹{{ item.price }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              No items
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8" style="text-align:center;">No orders found.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id, event) {
+      event.preventDefault();
+      document.querySelectorAll('.content > div').forEach(div => div.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('nav-active'));
+      event.target.classList.add('nav-active');
+    }
+  </script>
+<!-- Notification Box script -->
+  <script>
+function showNotification(message, type = "success") {
+  const box = document.getElementById("notificationBox");
+  box.textContent = message;
+  box.className = `${type} show`;
+  setTimeout(() => {
+    box.classList.remove("show");
+    setTimeout(() => (box.className = "hidden"), 400);
+  }, 3000);
+}
+</script>
+
+
+  <!-- AJAX for User Management script -->
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 🟢 ADD USER — via AJAX
+  document.querySelector("form[action*='add_user']").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const data = Object.fromEntries(formData.entries());
+
+    const res = await fetch("{{ url_for('add_user') }}", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+    showNotification(result.message, result.success ? "success" : "error");
+
+    if (result.success) reloadUsers();
+  });
+
+
+  // 🟢 DELETE USER
+ document.querySelectorAll("form[action*='delete_user']").forEach(form => {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const url = form.action;
+    
+    // ✅ Show confirmation modal instead of confirm()
+    showConfirmModal(async () => {
+      const res = await fetch(url, { method: "POST" });
+      const result = await res.json();
+      showNotification(result.message, result.success ? "success" : "error");
+      if (result.success) reloadUsers();
+    });
+  });
+});
+
+// 🔴 Confirmation Modal Logic
+function showConfirmModal(onConfirm) {
+  const modal = document.getElementById("confirmModal");
+  const yesBtn = document.getElementById("confirmYes");
+  const noBtn = document.getElementById("confirmNo");
+
+  modal.classList.add("show");
+
+  // Prevent multiple event listeners stacking
+  yesBtn.onclick = () => {
+    modal.classList.remove("show");
+    onConfirm();
+  };
+  noBtn.onclick = () => {
+    modal.classList.remove("show");
+  };
+}
+
+  // 🟢 RESET PASSWORD
+  document.querySelectorAll("form[action*='reset_password']").forEach(form => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const new_password = formData.get("new_password");
+      const url = form.action;
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ new_password }),
+      });
+      const result = await res.json();
+      showNotification(result.message, result.success ? "success" : "error");
+
+      if (result.success) reloadUsers();
+    });
+  });
+
+  // 🟢 Function to reload users table instantly
+  async function reloadUsers() {
+    const res = await fetch("{{ url_for('admin_dashboard') }}");
+    const text = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html");
+    const newTable = doc.querySelector("#users table").innerHTML;
+    document.querySelector("#users table").innerHTML = newTable;
+  }
+});
+</script>
+
+</body>
+</html>
