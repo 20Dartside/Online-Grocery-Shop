@@ -54,3 +54,10 @@ The E-Commerce Grocery Website is a full-stack web application designed to provi
 - 🔒 Ensured high availability, performance, and security of the application through robust AWS infrastructure.
 
 - 🚀 Strengthened skills in cloud deployment, automation, and end-to-end web application management
+
+  ## 📄 Author
+**Vikas Patel**  
+DevOps & AWS Enthusiast  
+A passionate Cloud & Full Stack Developer with hands-on experience in AWS Cloud Computing, Python (Flask/Django), and DevOps tools. Skilled in designing, deploying, and managing scalable web applications, with strong knowledge of CI/CD, Docker, and Git-based workflows. Enthusiastic about leveraging cloud technologies to build high-performance, secure, and user-friendly applications.
+
+📧 vikaspatel9922@gmail.com | 🌐 [GitHub Profile](https://github.com/20Dartside)
