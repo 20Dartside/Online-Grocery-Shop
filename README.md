@@ -1,4 +1,4 @@
-# Online-Grocery-Shop website
+# AWS-Powered DevOps Pipeline for Full-Stack E-Commerce Grocery Platform
 
 ##  Tables Contents  
 
