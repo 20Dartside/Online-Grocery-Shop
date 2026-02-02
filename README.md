@@ -43,6 +43,18 @@ The E-Commerce Grocery Website is a full-stack web application designed to provi
 
 ## Outputs
 
+##  Output's 
+
+<div align="center">
+  
+  <p><strong>Home page – </strong></p>
+  
+![Image Alt](https://github.com/20Dartside/Food-ordering-Website-Deploy-on-Devops/blob/master/output-img/Screenshot 2026-02-02 122623.png?raw=true)
+
+</div>
+
+---
+  
 # Conclusion
 
 - ✅ Designed and deployed a scalable cloud-based web application using AWS.
