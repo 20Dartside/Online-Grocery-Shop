@@ -43,13 +43,28 @@ The E-Commerce Grocery Website is a full-stack web application designed to provi
 
 ## Outputs
 
-##  Output's 
-
 <div align="center">
   
   <p><strong>Home page – </strong></p>
   
-![Image Alt](https://github.com/20Dartside/Food-ordering-Website-Deploy-on-Devops/blob/master/output-img/Screenshot 2026-02-02 122623.png?raw=true)
+![Image Alt](https://raw.githubusercontent.com/20Dartside/Online-Grocery-Shop/refs/heads/master/Output/Screenshot%202026-02-02%20122623.png?raw=true) 
+
+ <p><strong>Product page – </strong></p>
+  
+![Image Alt](https://raw.githubusercontent.com/20Dartside/Online-Grocery-Shop/refs/heads/master/Output/Screenshot%202026-02-02%20122722.png?raw=true) 
+
+
+ <p><strong>Add to Cart page  – </strong></p>
+  
+![Image Alt](https://raw.githubusercontent.com/20Dartside/Online-Grocery-Shop/refs/heads/master/Output/Screenshot%202026-02-02%20122811.png?raw=true) 
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20122735.png?raw=true) 
+
+ <p><strong>Checkout page – </strong></p>
+  
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123429.png?raw=true) 
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123441.png?raw=true) 
+
+
 
 </div>
 
