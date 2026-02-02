@@ -78,7 +78,7 @@ The E-Commerce Grocery Website is a full-stack web application designed to provi
  
 ![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123226.png?raw=true) 
 ![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123238.png?raw=true) 
-![Image Alt](?raw=true)
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20162414.png?raw=true)
 ![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123856.png?raw=true) 
  
 
