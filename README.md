@@ -44,6 +44,12 @@ The E-Commerce Grocery Website is a full-stack web application designed to provi
 ## Outputs
 
 <div align="center">
+
+
+  <p><strong>Registraction & Login page – </strong></p>
+  
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20160725.png?raw=true) 
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20160746.png?raw=true)
   
   <p><strong>Home page – </strong></p>
   
@@ -64,6 +70,17 @@ The E-Commerce Grocery Website is a full-stack web application designed to provi
 ![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123429.png?raw=true) 
 ![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123441.png?raw=true) 
 
+ <p><strong>Running server On Local Machine  – </strong></p>
+ 
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123040.png?raw=true) 
+
+ <p><strong> Database  – </strong></p>
+ 
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123226.png?raw=true) 
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123238.png?raw=true) 
+![Image Alt](?raw=true)
+![Image Alt](https://github.com/20Dartside/Online-Grocery-Shop/blob/master/Output/Screenshot%202026-02-02%20123856.png?raw=true) 
+ 
 
 
 </div>
